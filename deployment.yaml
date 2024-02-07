@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  hello_node-deployment
+  namespace: myapp
+  labels:
+    app:  hello_node
+spec:
+  selector:
+    matchLabels:
+      app: hello_node
+  replicas: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  hello_node
+    spec:
+      containers:
+      - name:  hello_node
+        image:  soloetzgh/agronode:test
+        imagePullPolicy: Always
+        ports:
+        - containerPort:  8080
+          name: hello_node
