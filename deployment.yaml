@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  hello_node-deployment
+  name:  hello-node-deployment
   namespace: myapp
   labels:
-    app:  hello_node
+    app:  hello-node
 spec:
   selector:
     matchLabels:
-      app: hello_node
+      app: hello-node
   replicas: 3
   strategy:
     rollingUpdate:
@@ -18,12 +18,12 @@ spec:
   template:
     metadata:
       labels:
-        app:  hello_node
+        app:  hello-node
     spec:
       containers:
-      - name:  hello_node
+      - name:  hello-node
         image:  soloetzgh/agronode:test
         imagePullPolicy: Always
         ports:
         - containerPort:  8080
-          name: hello_node
+          name: hello-node
