@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name:  hello-node
-        image:  soloetzgh/agronode:17
+        image:  soloetzgh/agronode:20
         imagePullPolicy: Always
         ports:
         - containerPort:  8080
