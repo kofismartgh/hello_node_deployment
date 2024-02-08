@@ -11,7 +11,7 @@ node {
             script {
                 BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
                 echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
-                BUILD_CAUSE_JSON=$(curl --silent ${BUILD_URL}/api/json | tr "{}" "\n" | grep "Started by")
+                BUILD_CAUSE_JSON = sh ( script: "curl --silent ${BUILD_URL}/api/json | tr '{}' '\n' | grep 'Started by'",returnStdout: true   ).trim()
                 echo "BUILD_STARTED_BY:${BUILD_CAUSE_JSON}"
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
                         //sh "git switch master"
