@@ -12,7 +12,7 @@ node {
                 BUILD_TRIGGER_BY_FULL = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
                 BUILD_TRIGGER_BY_USER = currentBuild.getBuildCauses()[0].userId
                 BUILD_TRIGGER_BY_NAME = currentBuild.getBuildCauses()[0].shortDescription
-                echo "BUILD_TRIGGER_BY_FULL: ${BUILD_TRIGGER_BY}"
+                echo "BUILD_TRIGGER_BY_FULL: ${BUILD_TRIGGER_BY_FULL}"
                 echo "BUILD_TRIGGER_BY_USER: ${BUILD_TRIGGER_BY_USER}"
                 echo "BUILD_TRIGGER_BY_NAME: ${BUILD_TRIGGER_BY_NAME}"
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
