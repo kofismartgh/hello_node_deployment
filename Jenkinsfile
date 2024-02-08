@@ -11,6 +11,8 @@ node {
             script {
                 BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
                 echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
+                BUILD_CAUSE_JSON=$(curl --silent ${BUILD_URL}/api/json | tr "{}" "\n" | grep "Started by")
+                echo "BUILD_STARTED_BY:${BUILD_CAUSE_JSON}"
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
                         //sh "git switch master"
                         sh "cat deployment.yaml"
@@ -23,9 +25,9 @@ node {
       script{
             withCredentials([usernamePassword(credentialsId: 'soloetzgit-kofismart', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
              sh "git config user.email solomon.martins@etranzact.com.gh"
-             sh "git config user.name Jenkins"
+             sh "git config user.name jenkins"
              sh "git add ."
-             sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
+             sh "git commit -m 'Trigger ${BUILD_TRIGGER_BY} Jenkins Job change_manifest: ${env.BUILD_NUMBER}'"
              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/hello_node_deployment.git HEAD:main"
             }
       }
