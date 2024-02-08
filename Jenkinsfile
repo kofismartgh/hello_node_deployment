@@ -14,7 +14,8 @@ node {
                 // BUILD_TRIGGER_BY_NAME = currentBuild.getBuildCauses()[0].shortDescription
                 // echo "BUILD_TRIGGER_BY_FULL: ${BUILD_TRIGGER_BY_FULL}"
                 // echo "BUILD_TRIGGER_BY_USER: ${BUILD_TRIGGER_BY_USER}"
-                echo "BUILD_TRIGGER_BY_NAME: ${BUILD_TRIGGER_BY_NAME}"
+                echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
+                sh "BUILD_TRIGGER_BY_NAME=$(echo '${BUILD_TRIGGER_BY}'| awk -F 'by' '{print $NF}' | awk '{$1=$1};1')"
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
                         //sh "git switch master"
                         sh "cat deployment.yaml"
@@ -29,7 +30,7 @@ node {
              sh "git config user.email solomon.martins@etranzact.com.gh"
              sh "git config user.name ${BUILD_TRIGGER_BY_NAME}"
              sh "git add ."
-             sh "git commit -m 'Trigger ${BUILD_TRIGGER_BY_NAME} Jenkins Job change_manifest: ${env.BUILD_NUMBER}'"
+             sh "git commit -m 'Trigger ${BUILD_TRIGGER_BY} Jenkins Job change_manifest: ${env.BUILD_NUMBER}'"
              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/hello_node_deployment.git HEAD:main"
             }
       }
