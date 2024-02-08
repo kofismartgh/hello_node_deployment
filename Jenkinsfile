@@ -15,7 +15,7 @@ node {
                 // echo "BUILD_TRIGGER_BY_FULL: ${BUILD_TRIGGER_BY_FULL}"
                 // echo "BUILD_TRIGGER_BY_USER: ${BUILD_TRIGGER_BY_USER}"
                 echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
-                BUILD_TRIGGER_BY_NAME = sh(script:"echo "$BUILD_TRIGGER_BY"| awk -F 'by' '{print $NF}' | awk '{$1=$1};1'")
+                BUILD_TRIGGER_BY_NAME = sh(script:"echo ${BUILD_TRIGGER_BY}| awk -F 'by' '{print $NF}' | awk '{$1=$1};1'")
                 echo "BUILD_TRIGGER_BY_NAME: ${BUILD_TRIGGER_BY_NAME}"
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
                         //sh "git switch master"
