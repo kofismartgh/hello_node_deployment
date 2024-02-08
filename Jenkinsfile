@@ -1,5 +1,8 @@
 node {
     def app
+    wrap([$class: 'BuildUser']) {
+    def user = env.BUILD_USER_ID
+    }
 
     stage('Clone repository') {
       
@@ -11,8 +14,10 @@ node {
             script {
                 BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
                 echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
-                BUILD_CAUSE_JSON = sh ( script: "curl --silent ${BUILD_URL}/api/json | tr '{}' '\n' | grep 'Started by'",returnStdout: true   ).trim()
-                echo "BUILD_STARTED_BY:${BUILD_CAUSE_JSON}"
+                echo "BUILD_USER_ID_1:${user}"
+                echo "BUILD_USER:${env.BUILD_USER}"
+                echo "BUILD_FNAME:${env.BUILD_USER_FIRST_NAME}"
+                echo "BUILD_USER_ID:${env.BUILD_USER_ID}"
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
                         //sh "git switch master"
                         sh "cat deployment.yaml"
